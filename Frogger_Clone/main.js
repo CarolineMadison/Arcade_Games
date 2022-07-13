@@ -5,8 +5,8 @@ var ctx = canvas.getContext('2d');
 //understanding setting the coordinates of a sprite sheet https://youtu.be/d-O5rYbJjr4
 var frogger = new Image(); 
 frogger.src = "frogger.png"
-//initialize variables to draw images
 
+//initialize variables to place clip sprite from sheet and place on correct x,y coordinates on the background
 var sx = 0;
 var sy = 0;
 var swidth = 52;
@@ -16,9 +16,54 @@ var y = 415;
 var width = 50;
 var height = 75;
 
+//-----> BUTTONS <-----//
+//initialize button values = booleans
+var rightPressed = false;
+var leftPressed = false;
+var upPressed = false;
+var downPressed = false;
+//We want the player to have to press then release then press again for movement, so the frog won't move continuously if a key is held down. The following variables
+var up = true;
+var down = true;
+var right = true;
+var left = true;
+
+//event listeners for key presses on buttons
+document.addEventListener("keydown", keyDownHandler, false);
+document.addEventListener("keyup", keyUpHandler, false);
+
+//When we press a key down, this information is stored in a variable. The relevant variable in each case is set to true. When the key is released, the variable is set back to false.
+function keyDownHandler(e) {
+    if(e.keyCode == 39) {
+        rightPressed = true;
+    }
+    if(e.keyCode == 37) {
+        rightPressed = true;
+    }
+    if(e.keyCode == 38) {
+        rightPressed = true;
+    }
+    if(e.keyCode == 40) {
+        rightPressed = true;
+    }
+}
+
+function keyUpHandler(e) {
+    if(e.keyCode == 39) {
+        rightPressed = false;
+    }
+    if(e.keyCode == 37) {
+        rightPressed = false;
+    }
+    if(e.keyCode == 38) {
+        rightPressed = false;
+    }
+    if(e.keyCode == 40) {
+        rightPressed = false;
+    }
+}
 
 //In order to animate, we need to wrap the background in a timing function that will update the canvas on each frame. This is how we can change sprite positions.
-
 function drawBackground() {
 
     //draw two strips of grass
@@ -67,8 +112,21 @@ function drawFrog() {
 //https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
 
 function draw() {
+    //clearRect will clear the canvas and redraw the frog with each execution of draw function
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
     drawBackground();
+
     drawFrog();
+    //conditional to move frog on key press
+    if (upPressed == true && up == true) {
+        y = y - 44;
+        up = false;
+    }
+    if (upPressed == false) {
+        up = true;
+    }
+    
     requestAnimationFrame(draw);
 }
 
