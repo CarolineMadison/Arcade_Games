@@ -1,3 +1,4 @@
+/* this is setting the stage for the canvas, the rest is drawn using main.js */
 body {
   background-color: yellow;
   display: flex;
