@@ -22,7 +22,7 @@ var rightPressed = false;
 var leftPressed = false;
 var upPressed = false;
 var downPressed = false;
-//We want the player to have to press then release then press again for movement, so the frog won't move continuously if a key is held down. The following variables
+//We want the player to have to press then release then press again for movement, so the frog won't move continuously if a key is held down. 
 var up = true;
 var down = true;
 var right = true;
@@ -38,13 +38,13 @@ function keyDownHandler(e) {
         rightPressed = true;
     }
     if(e.keyCode == 37) {
-        rightPressed = true;
+        leftPressed = true;
     }
     if(e.keyCode == 38) {
-        rightPressed = true;
+        upPressed = true;
     }
     if(e.keyCode == 40) {
-        rightPressed = true;
+        downPressed = true;
     }
 }
 
@@ -53,13 +53,13 @@ function keyUpHandler(e) {
         rightPressed = false;
     }
     if(e.keyCode == 37) {
-        rightPressed = false;
+        leftPressed = false;
     }
     if(e.keyCode == 38) {
-        rightPressed = false;
+        upPressed = false;
     }
     if(e.keyCode == 40) {
-        rightPressed = false;
+        downPressed = false;
     }
 }
 
@@ -118,7 +118,7 @@ function draw() {
     drawBackground();
 
     drawFrog();
-    //conditional to move frog on key press
+    //conditional to move frog up on key press
     if (upPressed == true && up == true) {
         y = y - 44;
         up = false;
@@ -126,7 +126,31 @@ function draw() {
     if (upPressed == false) {
         up = true;
     }
-    
+    //conditional to move frog down on key press
+    if (downPressed == true && down == true) {
+        y = y + 44;
+        down = false;
+    }
+    if (downPressed == false) {
+        down = true;
+    }
+    //conditional to move frog right on key press
+    if (rightPressed == true && right == true) {
+        x = x + 44;
+        right = false;
+    }
+    if (rightPressed == false) {
+        right = true;
+    }
+    //conditional to move frog left key press
+    if (leftPressed == true && left == true) {
+        x = x - 44;
+        left = false;
+    }
+    if (leftPressed == false) {
+        left = true;
+    }
+
     requestAnimationFrame(draw);
 }
 
